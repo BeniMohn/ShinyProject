@@ -1,0 +1,12 @@
+name: ModelFItter
+title: ModelFItter
+username:
+account: benimohn
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 675602
+bundleId: 1845606
+url: https://benimohn.shinyapps.io/ModelFItter/
+when: 1548849769.83167
+asMultiple: FALSE
+asStatic: FALSE

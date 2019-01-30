@@ -40,8 +40,13 @@ shinyServer(function(input, output, session) {
                 yVar <- input$yVar
                 xVars <- c(input$xVars)
                 model <- input$algo
-                
-                left_overs <- setdiff(names(data_frame), xVars)
+                choices <- names(data_frame)
+                if (all(is.element(xVars,choices))){
+                        left_overs <- setdiff(names(data_frame), xVars)
+                } else {
+                        xVars <- c()
+                        left_overs <- choices
+                }
                 nr_left <- length(left_overs)
                 nr_choosen <- length(xVars)
                 
