@@ -12,6 +12,8 @@ A app to fit any model you want
 
 Inputs
 ========================================================
+The app is divided into two tabs. One holding the documentation, called **Description**. The other is for the output of the calculation and is called **Application**.
+In this presentation I am more focusing on the later tab. Since the description tab is meant as a manual.
 The user is ask to do 5 inputs. They all are shown below, in brackets it is stated what kind of input it is. 
 
 1. Select a data set 1 out of 7 (drop down)  
@@ -49,8 +51,8 @@ Output for **mtcars**, x = **hp** & **wt**, y = **mpg**, **lm**
 
 
 ```
-  intercept     RMSE  Rsquared      MAE    RMSESD RsquaredSD     MAESD
-1      TRUE 2.939249 0.8238271 2.330645 0.5919682  0.0650095 0.4723412
+  intercept     RMSE  Rsquared      MAE    RMSESD RsquaredSD    MAESD
+1      TRUE 2.699095 0.8428444 2.108253 0.5585966 0.06193087 0.424544
 ```
 
 

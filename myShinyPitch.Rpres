@@ -12,6 +12,8 @@ A app to fit any model you want
 
 Inputs
 ========================================================
+The app is divided into two tabs. One holding the documentation, called **Description**. The other is for the output of the calculation and is called **Application**.
+In this presentation I am more focusing on the later tab. Since the description tab is meant as a manual.
 The user is ask to do 5 inputs. They all are shown below, in brackets it is stated what kind of input it is. 
 
 1. Select a data set 1 out of 7 (drop down)  

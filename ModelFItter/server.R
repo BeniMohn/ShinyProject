@@ -26,6 +26,82 @@ class_models <- c(
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
+        output$exmapleTable <- renderTable({
+                data_set <- Orange
+                x <- c("Tree", "age")
+                y <- "circumference"
+                model <- train(x= data_set[x],
+                               y= data_set[[y]],
+                               method = "glm")
+                return(model$results)
+        })
+        output$exmapleText <- renderPrint({
+                data_set <- InsectSprays
+                x <- c("spray")
+                y <- c("count")
+                model <- train(x= data_set[x],
+                                 y= data_set[[y]],
+                                 method = "lm")
+                return(model$finalModel)
+        })
+        output$examplePlot1 <- renderPlot({
+                data_set <- faithful
+                x <- c("waiting")
+                y <- c("eruptions")
+                model <- train(x= data_set[x],
+                               y= data_set[[y]],
+                               method = "glm")
+                predictions <- predict.train(model)
+                difference <- (predictions - data_set[[y]])
+                final_plot <- plot(x=data_set[[y]],
+                                   y=difference, 
+                                   main = "Residual Plot",
+                                   xlab = "Regressor",
+                                   ylab = "Residual"
+                ) + abline(h=0, col="red")
+                return(final_plot)
+        })
+        output$examplePlot2 <- renderPlot({
+                data_set <- iris
+                x <- c("Petal.Width")
+                y <- c("Species")
+                model <- train(x= data_set[x],
+                               y= data_set[[y]],
+                               method = "C5.0Tree")
+                predictions <- predict.train(model)
+                col_code <- predictions == data_set[[y]]
+                groups <- max(length(predictions)/10,2)
+                if (is.factor(data_set[[y]])){
+                        plot_data <- data_set[[y]]
+                }else {
+                        plot_data <- cut(data_set[[y]], breaks = groups)
+                }
+                matrix <- table(col_code, plot_data)
+                return(barplot(matrix,
+                                      col=c("red", "black"), 
+                                      main="Plot of predictions",
+                                      legend.text = c("Wrong", "Correct"), 
+                                      xlab = "Predictor Variable",
+                                      ylab = "Count of predictions"
+                ))
+        })
+        output$examplePlot3 <- renderPlot({
+                data_set <- iris
+                x <- c("Petal.Width", "Sepal.Length")
+                y <- c("Species")
+                model <- train(x= data_set[x],
+                               y= data_set[[y]],
+                               method = "knn")
+                predictions <- predict.train(model)
+                col_code <- predictions == data_set[[y]]
+                final_plot <- plot(data_set[x],
+                                   col=as.factor(col_code),
+                                   main= "Plot of predictions") 
+                legend("topright",
+                       legend = c("Correct", "Wrong"),
+                       col=c(2,1), cex=1, pch=1)
+                return(final_plot)
+        })
         observe({
                 data_frame <- 
                         switch(input$dataset,
@@ -141,7 +217,11 @@ shinyServer(function(input, output, session) {
                                                          col=c(2,1), cex=1, pch=1)
                         } else {
                                 groups <- max(length(predictions)/10,2)
-                                plot_data <- cut(data_set()[[predictors]], breaks = groups)
+                                if (is.factor(data_set()[[predictors]])){
+                                        plot_data <- data_set()[[predictors]]
+                                } else {
+                                        plot_data <- cut(data_set()[[predictors]], breaks = groups)
+                                }
                                 matrix <- table(col_code, plot_data)
                                 final_plot <- barplot(matrix,
                                                       col=c("red", "black"), 
